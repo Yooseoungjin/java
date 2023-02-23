@@ -5,6 +5,7 @@ import java.util.Random;
 public class P68 {
 
 	public static void main(String[] args) {
+		int bb = 100;
 		String s1 = "10";
 		int s2 = Integer.parseInt(s1);
 		int a = 7;
@@ -17,6 +18,6 @@ public class P68 {
 
 		Random r = new Random();
 		int rndNumber = r.nextInt(2);
-
+		
 	}
 }

@@ -2,7 +2,7 @@ package variable;
 
 import java.util.Random;
 
-public class P68 {
+public class P68_1 {
 
 	public static void main(String[] args) {
 		int bb = 100;

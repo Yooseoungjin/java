@@ -1,3 +1,0 @@
-package varialble;
-
-public main

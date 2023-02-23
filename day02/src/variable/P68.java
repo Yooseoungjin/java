@@ -17,6 +17,8 @@ public class P68 {
 
 		Random r = new Random();
 		int rndNumber = r.nextInt(2);
+		
+		//누군가 변경을 해버렸다 어떻게 하는가?
 
 	}
 }

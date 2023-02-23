@@ -6,6 +6,7 @@ public class P68 {
 
 	public static void main(String[] args) {
 		String s1 = "10";
+		String s2 = "10";
 		int s2 = Integer.parseInt(s1);
 		int a = 7;
 		System.out.println(s2 + a);

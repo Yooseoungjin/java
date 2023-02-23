@@ -17,6 +17,6 @@ public class P68 {
 
 		Random r = new Random();
 		int rndNumber = r.nextInt(2);
-		System.out.println(rndNumber);
+
 	}
 }

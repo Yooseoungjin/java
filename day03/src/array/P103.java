@@ -1,13 +1,16 @@
 package array;
 
-public class P102 {
+public class P103 {
 
 	public static void main(String[] args) {
-		int a = 100;
-		int arr[] = new int[3]; //뤠!퍼런스 타입(;string, 여러개의 캐릭터를 담아서 주소를 만듬)
-		arr[0] = 10;
-		arr[1] = 20;
-		arr[2] = 30;
+		
+		//int arr[] = new int[3];
+//		int[]arr = new int[3];
+		
+//		arr[0] = 10;
+//		arr[1] = 20;
+//		arr[2] = 30;
+		int arr[] = {10,20,30}; // 30.0으로 못한다 모두다 int로 통일(하나의 타입반 가능)
 		System.out.println(arr);
 		
 		for(int i =0;i<arr.length ;i++) {

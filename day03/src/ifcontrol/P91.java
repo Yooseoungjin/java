@@ -5,7 +5,7 @@ public class P91 {
 	public static void main(String[] args) {
 		int a = 1222;
 		int b = 1000;		
-		int c= -1;	
+		int c= -1;
 		
 		// 세수의 최대 값과 최소 값을 구하시오
 		int max =0;

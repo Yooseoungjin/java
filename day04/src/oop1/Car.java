@@ -5,7 +5,7 @@ public class Car {
 	public String color;
 	public int size;
 	
-	// 생성자.(constructor)
+//	 생성자.(constructor)
 	public Car() {
 		this.name ="k1";
 		this.color="red";

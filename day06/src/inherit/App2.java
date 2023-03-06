@@ -18,7 +18,7 @@ public class App2 {
 			System.out.println(em);
 			System.out.println(em.getAnnSalary());
 			if (em instanceof Sales) { // em에 들어있는 객체가 Sales 타입이니?하로 물어보는것이다
-				Sales s = (Sales) em; // em에 들어있는 세일즈 객체를 Sales로 변경하는것
+				Sales s = (Sales) em; // em에 들어있는 세일즈 객체를 Sales로 변경하는것. 하는 이유는 겟인센티브가 폴리모피즘을 할수 없기때문에 타입을 변환시켜주는 것이다
 				System.out.println(s.getIncentive());
 			}
 		}

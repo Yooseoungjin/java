@@ -14,7 +14,7 @@ public class Cal {
 	public static double div(double a, double b) throws InfinityException {
 		double result = 0.0;
 		if (b == 0.0) {
-			throw new InfinityException("ErrorCode: B0001"); // 여기서 던지면 밑에 리턴 실행 안됨
+			throw new InfinityException("B0001"); // 여기서 던지면 밑에 리턴 실행 안됨
 		}
 		result = a / b;
 		return result;

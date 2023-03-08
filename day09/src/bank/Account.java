@@ -10,7 +10,10 @@ public class Account {
 	public Account() {
 	}
 
-	public Account(String accNo, String name, String accHolder, double balance) {
+	public Account(String accNo, String name, String accHolder, double balance) throws Exception {
+		if(balance < 0) {
+			throw new Exception();
+		}
 		this.accNo = accNo;
 		this.name = name;
 		this.accHolder = accHolder;

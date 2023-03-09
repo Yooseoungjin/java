@@ -1,10 +1,8 @@
 package com.kbstar.app;
 
 import java.util.Scanner;
-
 import com.kbstar.dao.ItemDAO;
 import com.kbstar.dto.ItemDTO;
-import com.kbstar.dto.UserDTO;
 import com.kbstar.frame.DAO;
 
 public class App2 {
@@ -30,7 +28,6 @@ public class App2 {
 				int qt = Integer.parseInt(sc.next());
 
 				ItemDTO item = new ItemDTO(id, name, price, qt);
-
 				try {
 					itemDao.insert(item);
 				} catch (Exception e) {

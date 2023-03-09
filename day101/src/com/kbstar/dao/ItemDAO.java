@@ -18,6 +18,7 @@ public class ItemDAO implements DAO<Integer, ItemDTO> {
 		if(db.containsKey(v.getId())){
 			throw new Exception();
 		}
+		db.put(v.getId(), v);
 		System.out.println(v);
 		System.out.println("Inserted...");
 	}

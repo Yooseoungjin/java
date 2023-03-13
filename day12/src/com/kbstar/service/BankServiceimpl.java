@@ -75,13 +75,12 @@ public class BankServiceimpl implements BankService<UserDTO, AccountDTO, Transac
 		accountDao.insert(account);
 		UserDTO user = userDao.select(k);
 		notification.sendEmail(user.getEmail(), accNo + "계좌를 생성 하였습니다.");
-		notification.sendSMS(user.getContact(), accNo + "계좌를 생성 하였습니다.");		
+		notification.sendSMS(user.getContact(), accNo + "계좌를 생성 하였습니다.");
 	}
 
 	@Override
 	public List<TransactionDTO> getAllTr(String acc) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return TransactionDao.search(acc);
 	}
 
 	@Override
@@ -89,31 +88,31 @@ public class BankServiceimpl implements BankService<UserDTO, AccountDTO, Transac
 		System.out.println("금융결제원 전송..");
 		// 계좌 정보 수정
 		// 계좌 잔액 정보를 조회하고 잔액에서 이체하는 금액을 차감한 잔액으로 수정
-		AccountDTO acc=  null;
+		AccountDTO acc = null;
 		acc = accountDao.select(sendAcc); // 내 계좌의 정보를 가져와라
 		double abalance = acc.getBalance() - balance;
-		acc.setBalance(abalance); //송금후 잔액인 abalance를 계좌정보에 넣어라
+		acc.setBalance(abalance); // 송금후 잔액인 abalance를 계좌정보에 넣어라
 		accountDao.Update(acc);
 		// 거래 내역 추가
-		TransactionDTO tr=  
-		new TransactionDTO(MakeAccountNumber.makeTrNum(),
-				sendAcc, balance, "O", desc);
+		TransactionDTO tr = new TransactionDTO(MakeAccountNumber.makeTrNum(), sendAcc, balance, "O", desc);
 		TransactionDao.insert(tr);
 		System.out.println();
 
-		//sms, email 전송
+		// sms, email 전송
 		String uid = acc.getHolder();
 		UserDTO u = userDao.select(uid);
-		notification.sendEmail(u.getEmail(), 
-				acc.getAccNo()+" 에서 "+balance+" 출금 되었다. "+" 이체 후 잔액은 "+acc.getBalance());
-		notification.sendSMS(u.getContact(), sendAcc+" 에서 "+balance+" 출금 되었다. ");
+		notification.sendEmail(u.getEmail(),
+				acc.getAccNo() + " 에서 " + balance + " 출금 되었다. " + " 이체 후 잔액은 " + acc.getBalance());
+		notification.sendSMS(u.getContact(), sendAcc + " 에서 " + balance + " 출금 되었다. ");
 		// 완료
 	}
 
 	@Override
 	public List<AccountDTO> getAllAccount(String k) throws Exception {
-
-		return null;
+		List<AccountDTO> list = null;
+		list = accountDao.search(k);
+		return list;
+		//세줄 -> 한줄 표기법 return accountDao.search(k);		
 	}
 
 }

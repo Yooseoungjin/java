@@ -1,5 +1,6 @@
 package com.kbstar.app;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.kbstar.dto.AccountDTO;
@@ -15,9 +16,7 @@ public class App {
 	public static void main(String[] args) {
 		BankService<UserDTO, AccountDTO, TransactionDTO, String, String> service = new BankServiceimpl();
 		service = new BankServiceimpl();
-		CRUDService<String, UserDTO> userService = 
-				new UserService();
-		
+
 		Scanner sc = new Scanner(System.in);
 		while (true) {
 			System.out.println("Login(l) or Rehister(r) (q)...");
@@ -31,7 +30,7 @@ public class App {
 				String name = sc.next();
 				String email = sc.next();
 				String contact = sc.next();
-				UserDTO user = new UserDTO(id, pwd, name, email, contact);
+				UserDTO user = new UserDTO(id, pwd, name, email, contact); // 에 입력된 유저객체 저장
 				try {
 					service.register(user);
 					System.out.println("가입을 환입합니다.");
@@ -67,18 +66,29 @@ public class App {
 							String desc = sc.next();
 							service.transaction(sendAcc, receiveAcc, balance, desc);
 							System.out.println("Transaction Completed...");
-							
+
 						} else if (cmn.equals("a")) {
 							System.out.println("Select Account");
+							List<AccountDTO> list = null;
+							list = service.getAllAccount(user.getId());
+							for(AccountDTO acc:list) {
+								System.out.println(acc);
+							}
 						} else if (cmn.equals("i")) {
 							System.out.println("User Info");
 							String rid = user.getId();
 							UserDTO ruser = null;
 							ruser = service.getUserInfo(rid);
 							System.out.println(ruser);
-							
+
 						} else if (cmn.equals("tr")) {
 							System.out.println("Select Transaction");
+							String accNo = sc.next();
+							List<TransactionDTO> list = null;
+							list = service.getAllTr(accNo);
+							for(TransactionDTO tr:list) {
+								System.out.println(tr);
+							}
 						}
 					}
 				} catch (Exception e) {

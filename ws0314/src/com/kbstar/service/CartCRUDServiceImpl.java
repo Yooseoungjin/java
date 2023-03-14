@@ -4,25 +4,24 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.SQLRecoverableException;
 import java.util.List;
 
-import com.kbstar.dao.ItemDaoImpl;
-import com.kbstar.dto.Cust;
-import com.kbstar.dto.Item;
+import com.kbstar.dao.CartDaoImpl;
+import com.kbstar.dto.Cart;
 import com.kbstar.frame.CRUDService;
 import com.kbstar.frame.DAO;
 import com.kbstar.frame.MakeItemNumber;
 
-public class ItemCRUDServiceImpl implements CRUDService<String, Item> {
+public class CartCRUDServiceImpl implements CRUDService<String, Cart> {
 
-	DAO<String, String, Item> dao;
+	DAO<String, String, Cart> dao;
 
-	public ItemCRUDServiceImpl() {
-		dao = new ItemDaoImpl();
+	public CartCRUDServiceImpl() {
+		dao = new CartDaoImpl();
 	}
-
+	
 	@Override
-	public void register(Item v) throws Exception {
+	public void register(Cart v) throws Exception {
 		try {
-			String id = MakeItemNumber.makeItemNum();
+			String id = MakeItemNumber.makeCartNum();
 			v.setId(id);
 			dao.insert(v);
 		} catch (Exception e) {
@@ -37,7 +36,7 @@ public class ItemCRUDServiceImpl implements CRUDService<String, Item> {
 	}
 
 	@Override
-	public void modify(Item v) throws Exception {
+	public void modify(Cart v) throws Exception {
 		try {
 			dao.update(v);
 		} catch (Exception e) {
@@ -47,19 +46,18 @@ public class ItemCRUDServiceImpl implements CRUDService<String, Item> {
 				throw new Exception("시스템 장애 입니다.");
 			}
 		}
-	}
+	}	
 
 	@Override
 	public void remove(String k) throws Exception {
 		dao.delete(k);
-
 	}
 
 	@Override
-	public Item get(String k) throws Exception {
-		Item item = null;
+	public Cart get(String k) throws Exception {
+		Cart cart = null;
 		try {
-			item = dao.select(k);
+			cart = dao.select(k);
 		} catch (Exception e) {
 			if (e instanceof SQLRecoverableException) {
 				throw new Exception("네트워크 오류 발생!");
@@ -67,12 +65,12 @@ public class ItemCRUDServiceImpl implements CRUDService<String, Item> {
 				throw new Exception("입력하신 ID에 해당하는 정보가 없습니다!");
 			}
 		}
-		return item;
+		return cart;
 	}
 
 	@Override
-	public List<Item> get() throws Exception {
-		List<Item> list = null;
+	public List<Cart> get() throws Exception {
+		List<Cart> list = null;
 		try {
 			list = dao.selectAll();
 		} catch (Exception e) {
@@ -86,9 +84,18 @@ public class ItemCRUDServiceImpl implements CRUDService<String, Item> {
 	}
 
 	@Override
-	public List<Item> getUserSelection(String k) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Cart> getUserSelection(String k) throws Exception {
+		List<Cart> list = null;
+		try {
+			list = dao.selectUser(k);
+		} catch (Exception e) {
+			if (e instanceof SQLRecoverableException) {
+				throw new Exception("시스템 장애 입니다. 잠시 후 재접속 바라요~");
+			} else {
+				throw new Exception("ID가 존재하지 않습니다.");
+			}
+		}
+		return list;
 	}
 
 }

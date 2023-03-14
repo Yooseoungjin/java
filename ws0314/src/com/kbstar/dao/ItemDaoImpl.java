@@ -117,4 +117,10 @@ public class ItemDaoImpl implements DAO<String, String, Item> {
 		return item;
 	}
 
+	@Override
+	public List<Item> selectUser(String k) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

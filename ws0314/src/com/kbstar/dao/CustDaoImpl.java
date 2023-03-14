@@ -144,4 +144,10 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 		return null;
 	}
 
+	@Override
+	public List<Cust> selectUser(String k) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

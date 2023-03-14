@@ -93,4 +93,10 @@ public class CustCRUDServiceImpl implements CRUDService<String, Cust> {
 		return list;
 	}
 
+	@Override
+	public List<Cust> getUserSelection(String k) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

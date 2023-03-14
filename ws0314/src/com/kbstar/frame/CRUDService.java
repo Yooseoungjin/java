@@ -8,6 +8,5 @@ public interface CRUDService<K,V> {
 	public void remove(K k) throws Exception;
 	public V get(K k) throws Exception;
 	public List<V> get() throws Exception;
-	public List<V> getUserSelection(K k) throws Exception;
-	
+	public List<V> getUserSelection(K k) throws Exception;	
 }

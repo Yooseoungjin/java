@@ -12,7 +12,7 @@ public class CartSelectUserTest {
 		CRUDService<String, Cart> service = new CartCRUDServiceImpl();
 		List<Cart> list = null;
 		try {
-			list = service.getUserSelection("bogo");
+			list = service.getUserSelection("보고보고");
 			if (list.size() == 0) {
 				System.out.println("데이터가 없네요");
 			} else {
@@ -20,7 +20,7 @@ public class CartSelectUserTest {
 					System.out.println(obj);
 				}
 			}
-			System.out.println("등록된 ITEM의 갯수는 "+list.size()+"개 입니다.");
+			System.out.println("장바구니의 ITEM의 갯수는 "+list.size()+"개 입니다.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

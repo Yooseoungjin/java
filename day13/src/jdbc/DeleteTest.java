@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DeleteTest4 {
+public class DeleteTest {
 	public static void main(String[] args) {
 		// Driver Loading
 		try {

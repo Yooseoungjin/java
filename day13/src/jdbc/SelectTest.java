@@ -29,7 +29,7 @@ public class SelectTest {
 
 		try (Connection con = DriverManager.getConnection(url, id, pwd);
 				PreparedStatement pstmt = con.prepareStatement(selectSql);) {
-			pstmt.setString(1, "id01");
+			pstmt.setString(1, "id03");
 		
 			try(ResultSet rset = pstmt.executeQuery()){
 				rset.next(); //data가 두번째 행에서 시작되므로 넥스트를 넣어서 처리하는 것

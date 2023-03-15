@@ -5,6 +5,10 @@ public class Cust {
 	private String pwd;
 	private String name;
 	private int age;
+	
+	public Cust() {
+	}	
+	
 	public Cust(String id, String pwd, String name, int age) {
 		this.id = id;
 		this.pwd = pwd;
@@ -35,7 +39,10 @@ public class Cust {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public Cust() {
+
+	@Override
+	public String toString() {
+		return "Cust [id=" + id + ", pwd=" + pwd + ", name=" + name + ", age=" + age + "]";
 	}
 	
 	

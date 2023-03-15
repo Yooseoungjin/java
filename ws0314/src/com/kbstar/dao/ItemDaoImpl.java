@@ -39,7 +39,8 @@ public class ItemDaoImpl implements DAO<String, String, Item> {
 	@Override
 	public void delete(String k) throws Exception {
 
-		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.itemDeleteSql);) {
+		try (Connection con = getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(Sql.itemDeleteSql);) {
 			pstmt.setString(1, k);
 			int result = pstmt.executeUpdate();
 			if (result == 0) {
@@ -68,7 +69,8 @@ public class ItemDaoImpl implements DAO<String, String, Item> {
 	@Override
 	public List<Item> selectAll() throws Exception {
 		List<Item> list = new ArrayList<>();
-		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.itemSelectAllSql);) {
+		try (Connection con = getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(Sql.itemSelectAllSql);) {
 			try (ResultSet rset = pstmt.executeQuery();) {
 				while (rset.next()) {
 					Item item = null;
@@ -97,7 +99,8 @@ public class ItemDaoImpl implements DAO<String, String, Item> {
 	@Override
 	public Item select(String k) throws Exception {
 		Item item = null;
-		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.itemSelectSql);) {
+		try (Connection con = getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(Sql.itemSelectSql);) {
 			pstmt.setString(1, k);
 			try (ResultSet rset = pstmt.executeQuery()) {
 				rset.next();

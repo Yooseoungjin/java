@@ -7,10 +7,11 @@ import com.kbstar.service.CustCRUDServiceImpl;
 public class CustSelectTest {
 
 	public static void main(String[] args) {
-		CRUDService<String, Cust> crudService = new CustCRUDServiceImpl();
+		
+		CRUDService<String, Cust> Service = new CustCRUDServiceImpl();
 		Cust cust = null;
 		try {
-			crudService.get("id01");
+			cust = Service.get("id88");
 			System.out.println(cust);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -66,8 +66,8 @@ public class CustCRUDServiceImpl implements CRUDService<String, Cust> {
 	@Override
 	public Cust get(String k) throws Exception {
 		Cust cust = null;
-		try { // 이 트라이 캐치문을 포함 하면 custdaoimpl의 예외사항을 화면에 바로 던지지 않고 아래 캐치문을 반영함(고객이 보는 화면용 용어로 다듬기 위함)
-			cust = dao.select(k); // custdaoimpl에서 날아오는 예외사항 받는위치. 트라이 캐치가 없다면 위 스로우로 app으로 다시 던짐
+		try {                     // 이 트라이 캐치문을 포함 하면 Custdaoimpl의 예외사항을 화면에 바로 던지지 않고 아래 캐치문을 반영함(고객이 보는 화면용 용어로 다듬기 위함)
+			cust = dao.select(k); // Custdaoimpl에서 날아오는 예외사항 받는위치. 트라이 캐치가 없다면 위 스로우로 app으로 바로 다시 던짐
 		} catch (Exception e) {
 			if (e instanceof SQLRecoverableException) { // 네트워크 오류
 				throw new Exception("시스템 장애 입니다. 잠시 후 재접속 바래요~");

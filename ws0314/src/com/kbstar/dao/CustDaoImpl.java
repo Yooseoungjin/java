@@ -25,7 +25,6 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 			e.printStackTrace();
 			return;
 		}
-		System.out.println("Driver Loading 성공.");
 	}
 
 	public Connection getConnection() throws Exception {
@@ -97,9 +96,14 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 		try (Connection con = getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(Sql.selectSql)) {
 			pstmt.setString(1, k);
-
+			int result = pstmt.executeUpdate(); //존재하지 않는 아이디 입니다 < 문구 출력을 위해 추가함
 			try (ResultSet rset = pstmt.executeQuery()) {
 				rset.next();
+				
+				if(result == 0) {
+					throw new Exception("존재하지 않는 아이디 입니다.");
+				}
+				
 				String id = rset.getString("id");
 				String pwd = rset.getString("pwd");
 				String name = rset.getString("name");

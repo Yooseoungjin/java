@@ -10,7 +10,7 @@ public class CustDeleteTest {
 		CRUDService<String, Cust> crudService = new CustCRUDServiceImpl();
 		
 		try {
-		crudService.remove("id22");
+		crudService.remove("id95");
 		System.out.println("성공");
 		}catch(Exception e) {
 			System.out.println(e.getMessage());

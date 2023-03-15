@@ -21,7 +21,6 @@ public class CartDaoImpl implements DAO<String, String, Cart> {
 			e.printStackTrace();
 			return;
 		}
-		System.out.println("로딩 성공");
 	}
 
 	@Override
@@ -53,8 +52,7 @@ public class CartDaoImpl implements DAO<String, String, Cart> {
 
 	@Override
 	public void update(Cart v) throws Exception {
-		try (Connection con = getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(Sql.cartUpdateSql);) {
+		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.cartUpdateSql);) {
 			pstmt.setInt(1, v.getCnt());
 			pstmt.setString(2, v.getId());
 			pstmt.executeUpdate();
@@ -66,8 +64,7 @@ public class CartDaoImpl implements DAO<String, String, Cart> {
 	@Override
 	public Cart select(String k) throws Exception {
 		Cart cart = null;
-		try (Connection con = getConnection();
-				PreparedStatement pstmt = con.prepareStatement(Sql.cartSelectSql);) {
+		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.cartSelectSql);) {
 			pstmt.setString(1, k);
 			try (ResultSet rset = pstmt.executeQuery()) {
 				rset.next();
@@ -89,8 +86,7 @@ public class CartDaoImpl implements DAO<String, String, Cart> {
 	@Override
 	public List<Cart> selectAll() throws Exception {
 		List<Cart> list = new ArrayList<>();
-		try (Connection con = getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(Sql.cartSelectAllSql);) {
+		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.cartSelectAllSql);) {
 			try (ResultSet rset = pstmt.executeQuery();) {
 				while (rset.next()) {
 					Cart cart = null;
@@ -114,19 +110,18 @@ public class CartDaoImpl implements DAO<String, String, Cart> {
 	public List<Cart> selectUser(String k) throws Exception {
 		List<Cart> list = new ArrayList<>();
 
-		try (Connection con = getConnection();
-				PreparedStatement pstmt = con.prepareStatement(Sql.cartSelectUserSql);) {
+		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.cartSelectUserSql);) {
 			pstmt.setString(1, k);
 			try (ResultSet rset = pstmt.executeQuery()) {
 				while (rset.next()) {
-				Cart cart = null;
-				String id = rset.getString("id");
-				String user_id = rset.getString("user_id");
-				String item_id = rset.getString("item_id");
-				int cnt = rset.getInt("cnt");
-				Date regdate = rset.getDate("regdate");
-				cart = new Cart(id, user_id, item_id, cnt, regdate);
-				list.add(cart);
+					Cart cart = null;
+					String id = rset.getString("id");
+					String user_id = rset.getString("user_id");
+					String item_id = rset.getString("item_id");
+					int cnt = rset.getInt("cnt");
+					Date regdate = rset.getDate("regdate");
+					cart = new Cart(id, user_id, item_id, cnt, regdate);
+					list.add(cart);
 				}
 			} catch (Exception e) {
 				throw e;
@@ -137,11 +132,31 @@ public class CartDaoImpl implements DAO<String, String, Cart> {
 		return list;
 	}
 
-
 	@Override
 	public List<Cart> search(String k) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		List<Cart> list = new ArrayList<>();
 
+		try (Connection con = getConnection(); 
+			PreparedStatement pstmt = 
+					con.prepareStatement(Sql.mycartSelectAllSql);) {
+			pstmt.setString(1, k);
+			try (ResultSet rset = pstmt.executeQuery()) {
+				while (rset.next()) {
+					Cart cart = null;
+					String id = rset.getString("id");
+					String user_id = rset.getString("user_id");
+					String item_id = rset.getString("item_id");
+					int cnt = rset.getInt("cnt");
+					Date regdate = rset.getDate("regdate");
+					cart = new Cart(id, user_id, item_id, cnt, regdate);
+					list.add(cart);
+				}
+			} catch (Exception e) {
+				throw e;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return list;
+	}
 }

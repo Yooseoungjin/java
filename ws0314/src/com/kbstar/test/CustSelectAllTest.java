@@ -9,10 +9,10 @@ import com.kbstar.service.CustCRUDServiceImpl;
 public class CustSelectAllTest {
 
 	public static void main(String[] args) {
-		CRUDService<String, Cust> crudService = new CustCRUDServiceImpl();
+		CRUDService<String, Cust> Service = new CustCRUDServiceImpl();
 		List<Cust> list = null;
 		try {
-			list = crudService.get();
+			list = Service.get();
 			if (list.size() == 0) {
 				System.out.println("데이터가 없네요");
 			} else {

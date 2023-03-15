@@ -21,7 +21,6 @@ public class ItemDaoImpl implements DAO<String, String, Item> {
 			e.printStackTrace();
 			return;
 		}
-		System.out.println("로딩 성공");
 	}
 
 	@Override

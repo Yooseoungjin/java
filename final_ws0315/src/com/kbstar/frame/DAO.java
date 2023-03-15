@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.util.List;
 import java.util.Properties;
 
+import com.kbstar.dto.AccountDTO;
+
 public interface DAO<K,V>{
 	public void insert(V v) throws Exception;
 	public void delete(K k) throws Exception;

@@ -4,20 +4,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.kbstar.dto.AccountDTO;
-import com.kbstar.dto.TransactionDTO;
-import com.kbstar.dto.UserDTO;
+import com.kbstar.dto.CustDTO;
+import com.kbstar.dto.TrDTO;
 import com.kbstar.frame.BankService;
-import com.kbstar.frame.CRUDService;
 import com.kbstar.service.BankServiceimpl;
-import com.kbstar.service.UserService;
 
 public class App {
 
 	public static void main(String[] args) {
-		BankService<UserDTO, AccountDTO, TransactionDTO, String, String> service 
-		= new BankServiceimpl();
+		BankService<CustDTO, AccountDTO, TrDTO, String, String> service = new BankServiceimpl();
 		service = new BankServiceimpl();
-		
+
 		Scanner sc = new Scanner(System.in);
 		while (true) {
 			System.out.println("Login(l) or Rehister(r) (q)...");
@@ -29,9 +26,8 @@ public class App {
 				String id = sc.next();
 				String pwd = sc.next();
 				String name = sc.next();
-				String email = sc.next();
 				String contact = sc.next();
-				UserDTO user = new UserDTO(id, pwd, name,contact); // 에 입력된 유저객체 저장
+				CustDTO user = new CustDTO(id, pwd, name, contact); // 에 입력된 유저객체 저장
 				try {
 					service.register(user);
 					System.out.println("가입을 환입합니다.");
@@ -42,7 +38,7 @@ public class App {
 				System.out.println("Login..");
 				String id = sc.next();
 				String pwd = sc.next();
-				UserDTO user = null;
+				CustDTO user = null;
 				try {
 					user = service.login(id, pwd);
 					System.out.println(user);
@@ -72,22 +68,22 @@ public class App {
 							System.out.println("Select Account");
 							List<AccountDTO> list = null;
 							list = service.getAllAccount(user.getId());
-							for(AccountDTO acc:list) {
+							for (AccountDTO acc : list) {
 								System.out.println(acc);
 							}
 						} else if (cmn.equals("i")) {
 							System.out.println("User Info");
 							String rid = user.getId();
-							UserDTO ruser = null;
+							CustDTO ruser = null;
 							ruser = service.getUserInfo(rid);
 							System.out.println(ruser);
 
 						} else if (cmn.equals("tr")) {
 							System.out.println("Select Transaction");
 							String accNo = sc.next();
-							List<TransactionDTO> list = null;
+							List<TrDTO> list = null;
 							list = service.getAllTr(accNo);
-							for(TransactionDTO tr:list) {
+							for (TrDTO tr : list) {
 								System.out.println(tr);
 							}
 						}

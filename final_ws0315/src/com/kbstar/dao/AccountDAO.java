@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -43,17 +42,16 @@ public class AccountDAO implements DAO<String, AccountDTO> {
 
 	@Override
 	public void delete(String k) throws Exception {
-		try (Connection con = getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(Sql.accdeleteSql);) {
+		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.accdeleteSql);) {
 			pstmt.setString(1, k);
 			int result = pstmt.executeUpdate();
 			if (result == 0) {
 				System.out.println(k + "는 없는 계좌번호입니다.");
-			}else {
-				System.out.println("계좌가 삭제 되었습니다");	
+			} else {
+				System.out.println("계좌가 삭제 되었습니다");
 			}
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
@@ -113,18 +111,31 @@ public class AccountDAO implements DAO<String, AccountDTO> {
 	// obj : 사용자의 id;
 	// Object obj = new String();
 	@Override
+
 	public List<AccountDTO> search(Object obj) throws Exception {
+
 		List<AccountDTO> list = new ArrayList<AccountDTO>();
-		Collection<AccountDTO> col = db.values();
-
-		for (AccountDTO acc : col) {
-			// 계좌 중에서 id가 obj와 같은 것들만 list에 넣어라
-			if ((acc.getHolder_id()).equals(obj)) {
-				list.add(acc);
+		try (Connection con = getConnection(); 
+				PreparedStatement pstmt 
+				= con.prepareStatement(Sql.myaccselectAllSql);) {
+			
+			pstmt.setObject(1, obj);
+			try (ResultSet rset = pstmt.executeQuery()) {
+				while (rset.next()) {
+					AccountDTO acc = null;
+					String accNO = rset.getString("accNO");
+					Double balance = rset.getDouble("balance");
+					Date regdate = rset.getDate("regdate");
+					String holder_id = rset.getString("holder_id");
+					acc = new AccountDTO(accNO, balance, regdate, holder_id);
+					list.add(acc);
+				}
+			} catch (Exception e) {
+				throw e;
 			}
+		} catch (Exception e) {
+			throw e;
 		}
-
 		return list;
 	}
-
 }

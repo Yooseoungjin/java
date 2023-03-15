@@ -2,17 +2,17 @@ package com.kbstar.test;
 
 import java.util.List;
 
-import com.kbstar.dto.UserDTO;
+import com.kbstar.dto.CustDTO;
 import com.kbstar.frame.CRUDService;
-import com.kbstar.service.UserService;
+import com.kbstar.service.CustService;
 
 public class UserRegisterTest {
 
 	public static void main(String[] args) {
-		CRUDService<String, UserDTO> service = new UserService();
-		UserDTO obj = new UserDTO("id01", "pwd01", "james", "010-9999-0292");
-		UserDTO obj2 = new UserDTO("id02", "pwd02", "james", "010-9999-0292");
-		UserDTO obj3 = new UserDTO("id03", "pwd03", "james", "010-9999-0292");
+		CRUDService<String, CustDTO> service = new CustService();
+		CustDTO obj = new CustDTO("id01", "pwd01", "james", "010-9999-0292");
+		CustDTO obj2 = new CustDTO("id02", "pwd02", "james", "010-9999-0292");
+		CustDTO obj3 = new CustDTO("id03", "pwd03", "james", "010-9999-0292");
 
 		try {
 			service.register(obj);
@@ -23,7 +23,7 @@ public class UserRegisterTest {
 		}
 
 		// get(k) test ------------------------------------
-		UserDTO user = null;
+		CustDTO user = null;
 		try {
 			user = service.get("id01");
 			System.out.println(user);
@@ -35,11 +35,11 @@ public class UserRegisterTest {
 		// Emp e = new Manager();
 		// List list = new ArrayList();
 
-		List<UserDTO> list = null;
+		List<CustDTO> list = null;
 
 		try {
 			list = service.get();
-			for (UserDTO u : list) {
+			for (CustDTO u : list) {
 				System.out.println(u);
 			}
 		} catch (Exception e) {

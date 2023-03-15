@@ -3,11 +3,11 @@ package com.kbstar.service;
 import java.util.List;
 
 import com.kbstar.dao.AccountDAO;
-import com.kbstar.dao.TransactionDAO;
-import com.kbstar.dao.UserDAO;
+import com.kbstar.dao.CustDAO;
+import com.kbstar.dao.TrDAO;
 import com.kbstar.dto.AccountDTO;
-import com.kbstar.dto.TransactionDTO;
-import com.kbstar.dto.UserDTO;
+import com.kbstar.dto.CustDTO;
+import com.kbstar.dto.TrDTO;
 import com.kbstar.frame.BankService;
 import com.kbstar.frame.DAO;
 import com.kbstar.frame.MakeAccountNumber;
@@ -20,22 +20,22 @@ import com.kbstar.noti.NotificationImpl;
  *
  */
 
-public class BankServiceimpl implements BankService<UserDTO, AccountDTO, TransactionDTO, String, String> {
+public class BankServiceimpl implements BankService<CustDTO, AccountDTO, TrDTO, String, String> {
 
-	DAO<String, UserDTO> userDao;
+	DAO<String, CustDTO> userDao;
 	DAO<String, AccountDTO> accountDao;
-	DAO<String, TransactionDTO> TransactionDao;
+	DAO<String, TrDTO> TransactionDao;
 	Notification notification;
 
 	public BankServiceimpl() {
-		userDao = new UserDAO();
+		userDao = new CustDAO();
 		accountDao = new AccountDAO();
 		notification = new NotificationImpl();
-		TransactionDao = new TransactionDAO();
+		TransactionDao = new TrDAO();
 	}
 
 	@Override
-	public void register(UserDTO v) throws Exception {
+	public void register(CustDTO v) throws Exception {
 		try {
 			userDao.insert(v);
 		} catch (Exception e) {
@@ -45,8 +45,8 @@ public class BankServiceimpl implements BankService<UserDTO, AccountDTO, Transac
 	}
 
 	@Override
-	public UserDTO login(String k, String p) throws Exception {
-		UserDTO user = null;
+	public CustDTO login(String k, String p) throws Exception {
+		CustDTO user = null;
 		user = userDao.select(k);
 		if (user != null) {
 			if (user.getPwd().equals(p)) {
@@ -61,8 +61,8 @@ public class BankServiceimpl implements BankService<UserDTO, AccountDTO, Transac
 	}
 
 	@Override
-	public UserDTO getUserInfo(String k) throws Exception {
-		UserDTO user = null;
+	public CustDTO getUserInfo(String k) throws Exception {
+		CustDTO user = null;
 		user = userDao.select(k);
 		return user;
 	}
@@ -72,12 +72,12 @@ public class BankServiceimpl implements BankService<UserDTO, AccountDTO, Transac
 		String accNo = MakeAccountNumber.makeAccNum();
 		AccountDTO account = new AccountDTO(accNo, balance, k);
 		accountDao.insert(account);
-		UserDTO user = userDao.select(k);
+		CustDTO user = userDao.select(k);
 		notification.sendSMS(user.getContact(), accNo + "계좌를 생성 하였습니다.");
 	}
 
 	@Override
-	public List<TransactionDTO> getAllTr(String acc) throws Exception {
+	public List<TrDTO> getAllTr(String acc) throws Exception {
 		return TransactionDao.search(acc);
 	}
 
@@ -91,14 +91,15 @@ public class BankServiceimpl implements BankService<UserDTO, AccountDTO, Transac
 		double abalance = acc.getBalance() - balance;
 		acc.setBalance(abalance); // 송금후 잔액인 abalance를 계좌정보에 넣어라
 		accountDao.update(acc);
+		
 		// 거래 내역 추가
-		TransactionDTO tr = new TransactionDTO(MakeAccountNumber.makeTrNum(), sendAcc, balance, "O", desc);
+		TrDTO tr = new TrDTO(sendAcc, receiveAcc, desc, null);
 		TransactionDao.insert(tr);
 		System.out.println();
 
 		// sms 전송
 		String uid = acc.getHolder_id();
-		UserDTO u = userDao.select(uid);
+		CustDTO u = userDao.select(uid);
 		notification.sendSMS(u.getContact(),
 				acc.getAccNo() + " 에서 " + balance +
 				" 출금 되었다. " + " 이체 후 잔액은 " + acc.getBalance());

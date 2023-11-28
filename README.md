@@ -33,6 +33,6 @@ System.out.println(cart);
 </pre>
 
 
-[구글접속](https://google.com,"구글접속~경로")
+[구글접속](https://google.com)
 
 수정하기
